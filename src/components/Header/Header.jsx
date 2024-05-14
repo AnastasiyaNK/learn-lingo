@@ -9,19 +9,19 @@ const Header = () => {
   return (
     <StyledHeader>
       <Container className="headerInner">
-        <Link>
+        <Link className="headerLogo">
           <IconLogo />
         </Link>
-        <div>
-          <Link className="headerlink">Home</Link>
+        <div className="headerlinksWrapper">
+          <Link className="headerLink">Home</Link>
           <Link className="headerLink">Teachers</Link>
         </div>
-        <div>
-          <button>
+        <div className="headerWrapperBtn">
+          <button className="headerLoginBtn">
             <IconLogIn />
             Log in
           </button>
-          <button>Registration</button>
+          <button className="headerRegisterBtn">Registration</button>
         </div>
       </Container>
     </StyledHeader>

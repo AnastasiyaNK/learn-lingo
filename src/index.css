@@ -39,6 +39,7 @@ body {
   list-style: none;
 }
 
-.link {
+a {
   text-decoration: none;
 }
+
