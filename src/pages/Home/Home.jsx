@@ -1,6 +1,8 @@
-import { Container } from "../../components/Container/Container";
-import imgHero from "../../assets/images/block.png";
+import { Container } from "components/Container/Container";
+import imgHero from "assets/images/block.png";
 import { StyledHome } from "./Home.styled";
+import { Link } from "react-router-dom";
+import { ROUTE_PATH } from "constants/routest";
 
 const Home = () => {
   return (
@@ -17,7 +19,7 @@ const Home = () => {
               Tutors: Elevate your language proficiency to new heights by
               connecting with highly qualified and experienced tutors.
             </p>
-            <button className="blockLBtn">Get started</button>
+            <Link to={ROUTE_PATH.teachers} className="blockLBtn">Get started</Link>
           </div>
           <div className="blockR">
             <img className="blockRImg" src={imgHero} alt="Learn Ligo" />
