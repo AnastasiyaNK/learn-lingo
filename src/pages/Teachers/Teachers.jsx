@@ -2,6 +2,7 @@ import { Container } from "components/Container/Container";
 import { StyledTeachers } from "./Teachers.styled";
 import Select from "react-select";
 import { reactSelectStyles } from "constants/reactSelectStyled";
+import TeachersCard from "components/TeachersCard/TeachersCard";
 
 const languageOptions = [
   { value: "English", label: "English" },
@@ -27,13 +28,13 @@ const languageOptions = [
 ];
 
 const languageLevelOptions = [
-  { value: "beginner", label: "Beginner" },
-  { value: "elementary", label: "Elementary" },
-  { value: "preIntermediate", label: "Pre-Intermediate" },
-  { value: "intermediate", label: "Intermediate" },
-  { value: "upperIntermediate", label: "Upper-Intermediate" },
-  { value: "advanced", label: "Advanced" },
-  { value: "proficient", label: "Proficient" },
+  { value: "#A1 Beginner", label: "#A1 Beginner" },
+  { value: "#A2 Elementary", label: "#A2 Elementary" },
+  { value: "#B1 Pre-Intermediate", label: "#B1 Pre-Intermediate" },
+  { value: "#B2 Intermediate", label: "#B2 Intermediate" },
+  { value: "#C1 Upper-Intermediate", label: "#C1 Upper-Intermediate" },
+  { value: "#C2 Advanced", label: "#C2 Advanced" },
+  { value: "#Proficient", label: "#Proficient" },
 ];
 const priceOptions = [
   { value: "30", label: "$30" },
@@ -56,7 +57,7 @@ const priceOptions = [
 const Teachers = () => {
   return (
     <StyledTeachers>
-      <section>
+      <section className="sectionFilters">
         <Container>
           <div className="labelsWrapper">
             <label className="label">
@@ -95,7 +96,10 @@ const Teachers = () => {
       </section>
       <section>
         <Container>
-          <div></div>
+          <div className="cardsWrapper">
+            <TeachersCard />
+            <TeachersCard />
+          </div>
         </Container>
       </section>
     </StyledTeachers>

@@ -6,7 +6,7 @@ export const reactSelectStyles = {
     borderRadius: "14px",
     fontSize: "18px",
     height: "48px",
-    backgroundColor: "#f7f7fb",
+    backgroundColor: "#fff",
     appearance: "none",
     fontWeight: 500,
     lineHeight: 1.11,

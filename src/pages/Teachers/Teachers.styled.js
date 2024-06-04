@@ -1,7 +1,13 @@
 import styled from "styled-components";
 
 export const StyledTeachers = styled.div`
-  .labelsWrapper {
+  background: #f8f8f8;
+  padding-top: 94px;
+  
+  .sectionFilters{
+    margin-bottom:32px;
+
+  } .labelsWrapper {
     display: flex;
     gap: 20px;
   }
@@ -18,5 +24,11 @@ export const StyledTeachers = styled.div`
     max-width: 220px;
   }
   .select-launuage {
+  }
+  .cardsWrapper{
+    display:flex;
+    flex-direction:column;
+    gap:32px;
+
   }
 `;
