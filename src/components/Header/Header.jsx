@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom"
-import IconLogo from 'assets/images/learnlogo.svg?react'
+import { Link } from "react-router-dom";
+import IconLogo from "assets/images/learnlogo.svg?react";
 import IconLogIn from "assets/images/log-in-01.svg?react";
 import { StyledHeader } from "./Header.styled";
 import { Container } from "components/Container/Container";
 import { ROUTE_PATH } from "constants/routest";
-
+import { useState } from "react";
+import LogIn from "components/LogIn/LogIn";
+import Registration from "components/Registration/Registration";
 
 const Header = () => {
+  const [openLogIn, setOpenLogIn] = useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
+
+  const onOpenLogIn = () => {
+    setOpenLogIn(true);
+  };
+  const onOpenRegister = () => {
+    setOpenRegister(true);
+  };
+  const onCloseLogIn = () => {
+    setOpenLogIn(false);
+  };
+  const onCloseRegister = () => {
+    setOpenRegister(false);
+  };
   return (
     <StyledHeader>
       <Container className="headerInner">
@@ -22,15 +39,35 @@ const Header = () => {
           </Link>
         </div>
         <div className="headerWrapperBtn">
-          <button className="headerLoginBtn">
+          <button className="headerLoginBtn" onClick={onOpenLogIn}>
             <IconLogIn />
             Log in
           </button>
-          <button className="headerRegisterBtn">Registration</button>
+          <button className="headerRegisterBtn" onClick={onOpenRegister}>
+            Registration
+          </button>
         </div>
+        {openLogIn && (
+          <LogIn
+            closeModal={onCloseLogIn}
+            title={"Log In"}
+            text={
+              "Welcome back! Please enter your credentials to access your account and continue your search for an teacher."
+            }
+          />
+        )}
+        {openRegister && (
+          <Registration
+            closeModal={onCloseRegister}
+            title={"Registration"}
+            text={
+              "Thank you for your interest in our platform! In order to register, we need some information. Please provide us with the following information"
+            }
+          />
+        )}
       </Container>
     </StyledHeader>
   );
-}
+};
 
-export default Header
+export default Header;

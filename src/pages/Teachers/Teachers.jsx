@@ -3,6 +3,8 @@ import { StyledTeachers } from "./Teachers.styled";
 import Select from "react-select";
 import { reactSelectStyles } from "constants/reactSelectStyled";
 import TeachersCard from "components/TeachersCard/TeachersCard";
+import Modal from "components/Modal/Modal";
+import { useState } from "react";
 
 const languageOptions = [
   { value: "English", label: "English" },
@@ -55,6 +57,14 @@ const priceOptions = [
 ];
 
 const Teachers = () => {
+    const [openModal, setOpenModal] = useState(false);
+    const onOpenModal = () => {
+        setOpenModal(true)
+    }
+    const onCloseModal = () => {
+        setOpenModal(false);
+        
+    }
   return (
     <StyledTeachers>
       <section className="sectionFilters">
@@ -102,6 +112,16 @@ const Teachers = () => {
           </div>
         </Container>
       </section>
+      {openModal && (
+        <Modal
+          closeModal={onCloseModal}
+          title={"Book trial lesson"}
+          text={
+            "Our experienced tutor will assess your current language level, discuss your learning goals, and tailor the lesson to your specific needs."
+          }
+        />
+      )}
+      <button onClick={onOpenModal}>Open Modal</button>
     </StyledTeachers>
   );
 };
