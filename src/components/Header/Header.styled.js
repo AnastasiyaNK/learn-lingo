@@ -8,6 +8,8 @@ export const StyledHeader = styled.header`
     max-width: 1214px;
   }
   .headerLogo {
+    display: flex;
+    align-items: center;
   }
   .headerlinksWrapper {
     display: flex;
