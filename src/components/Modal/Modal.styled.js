@@ -20,6 +20,8 @@ export const StyledModal = styled.div`
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
+    max-height: 90dvh;
+    overflow: auto;
   }
   .closeBtn {
     cursor: pointer;

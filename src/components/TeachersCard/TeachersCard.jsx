@@ -5,8 +5,20 @@ import IconStar from "assets/images/star.svg?react";
 
 import IconHeart from "assets/images/heart.svg?react";
 import CardAddition from "components/CardAddition/CardAddition";
+import { useState } from "react";
+import Modal from "components/Modal/Modal";
+import BookTrialModal from "components/BookTrialModal/BookTrialModal";
 
 const TeachersCard = () => {
+  const [openBookTrial, setOpenBookTrial] = useState(false)
+  
+  const onOpenBookTrial = () => {
+    setOpenBookTrial(true)
+    
+  }
+   const onCloseBookTrial = () => {
+     setOpenBookTrial(false);
+   };
   return (
     <StyledTeachersCard>
       <div className="bodyCardLeft">
@@ -67,7 +79,23 @@ const TeachersCard = () => {
             <li className="levelItem">#B2 Upper-Intermediate</li>
           </ul>
         </div>
-        <button type="button" className="trialLessonBtn">Book trial lesson</button>
+        {openBookTrial && (
+          <BookTrialModal
+            closeModal={onCloseBookTrial}
+            title={"Book trial lesson"}
+            text={
+              "Our experienced tutor will assess your current language level, discuss your learning goals, and tailor the lesson to your specific needs."
+            }
+          />
+        )}
+
+        <button
+          onClick={onOpenBookTrial}
+          type="button"
+          className="trialLessonBtn"
+        >
+          Book trial lesson
+        </button>
       </div>
       <button type="button" className="heartBtn">
         <IconHeart className="heartIcon" />

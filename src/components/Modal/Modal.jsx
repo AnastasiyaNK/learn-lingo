@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { StyledModal } from "./Modal.styled";
 import IconClose from "assets/images/x-close.svg?react";
 
 const Modal = ({ closeModal, children, title, text }) => {
+  const modalRef = useRef(null)
+
   const handleOverlayClick = (event) => {
     if (event.target === event.currentTarget) {
       closeModal();
@@ -10,6 +12,10 @@ const Modal = ({ closeModal, children, title, text }) => {
   };
 
   useEffect(() => {
+    if (modalRef.current !== null) {
+      modalRef.current.focus();
+    }
+
     const handleEscapeClick = (event) => {
       if (event.code === "Escape") {
         closeModal();
@@ -24,9 +30,10 @@ const Modal = ({ closeModal, children, title, text }) => {
       document.body.style.overflowY = "visible";
     };
   }, [closeModal]);
+
   return (
-    <StyledModal onClick={handleOverlayClick}>
-      <div className="modal">
+    <StyledModal  onClick={handleOverlayClick}>
+      <div ref={modalRef} className="modal">
         <button className="closeBtn" onClick={closeModal}>
           <IconClose />
         </button>
