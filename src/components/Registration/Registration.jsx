@@ -6,6 +6,8 @@ import IconEyeSlash from "assets/images/eye-slash.svg?react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signUpSchema } from "constants/schemas";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "service/base";
 
 const Registration = ({ closeModal, title, text }) => {
   const [inputType, setInputType] = useState("password");
@@ -24,6 +26,21 @@ const Registration = ({ closeModal, title, text }) => {
     } else {
       setInputType("password");
     }
+  };
+  const onGoogleAuth = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        console.log(user);
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
 
   return (
@@ -70,6 +87,9 @@ const Registration = ({ closeModal, title, text }) => {
         </div>
         <button type="submit" className="loginBtn">
           Sign Up
+        </button>
+        <button type="button" className="loginBtn" onClick={onGoogleAuth}>
+          Login with Google
         </button>
       </StyledRegister>
     </Modal>
