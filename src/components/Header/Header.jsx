@@ -7,6 +7,7 @@ import { ROUTE_PATH } from "constants/routest";
 import { useState } from "react";
 import LogIn from "components/LogIn/LogIn";
 import Registration from "components/Registration/Registration";
+import Button, { ButtonSizes, ButtonVariants } from "components/Button/Button";
 
 const Header = () => {
   const [openLogIn, setOpenLogIn] = useState(false);
@@ -39,13 +40,13 @@ const Header = () => {
           </Link>
         </div>
         <div className="headerWrapperBtn">
-          <button className="headerLoginBtn" onClick={onOpenLogIn}>
+          <Button size={ButtonSizes.S} variant={ButtonVariants.GHOST} onClick={onOpenLogIn}>
             <IconLogIn />
             Log in
-          </button>
-          <button className="headerRegisterBtn" onClick={onOpenRegister}>
+          </Button>
+          <Button variant={ButtonVariants.SECONDARY} onClick={onOpenRegister}>
             Registration
-          </button>
+          </Button>
         </div>
         {openLogIn && (
           <LogIn

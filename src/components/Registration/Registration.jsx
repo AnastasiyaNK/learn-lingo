@@ -6,7 +6,7 @@ import IconEyeSlash from "assets/images/eye-slash.svg?react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signUpSchema } from "constants/schemas";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "service/base";
 
 const Registration = ({ closeModal, title, text }) => {
@@ -43,9 +43,23 @@ const Registration = ({ closeModal, title, text }) => {
       });
   };
 
+ 
+  const onRegisterWithEmailAndPassword = (data) => {
+    console.log(data);
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        
+          console.log(userCredential);
+        
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
   return (
     <Modal closeModal={closeModal} title={title} text={text}>
-      <StyledRegister onSubmit={handleSubmit((data) => console.log(data))}>
+      <StyledRegister onSubmit={handleSubmit(onRegisterWithEmailAndPassword)}>
         <div className="inputWrapper">
           <label className="loginLabel">
             <input

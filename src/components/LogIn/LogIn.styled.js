@@ -25,25 +25,26 @@ export const StyledLogin = styled.form`
       color: #121417;
     }
   }
-  .loginBtn {
-    border-radius: 12px;
-    padding: 16px 16px;
-    width: 100%;
-    height: 60px;
-    background: #f4c550;
-    border: none;
-    cursor: pointer;
-
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 1.56;
-    color: #121417;
+  .buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .googleIcon {
+    width: 25px;
+    height: 25px;
   }
   .eyeOpen {
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
     right: 18px;
+  }
+  .googleText {
+    font-weight:400;
+    font-size: 16px;
+    line-height: 1.37;
+    color: rgba(18, 20, 23, 0.8);
   }
   .eyeSlash {
     position: absolute;

@@ -32,7 +32,7 @@ export const StyledHeader = styled.header`
   .headerWrapperBtn {
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    
   }
   .headerLoginBtn {
     border: none;
