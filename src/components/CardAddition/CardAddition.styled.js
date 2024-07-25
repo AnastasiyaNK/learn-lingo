@@ -1,5 +1,7 @@
 import styled from "styled-components";
 export const StyledCardAddition = styled.div`
+padding-top:16px;
+
   .cardDescription {
     font-size: 16px;
     line-height: 1.5;

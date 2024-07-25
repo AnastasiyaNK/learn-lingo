@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 export const StyledLogin = styled.form`
   margin-top: 40px;
@@ -16,13 +17,13 @@ export const StyledLogin = styled.form`
     padding: 16px 18px 16px 18px;
     width: 100%;
     height: 54px;
-    font-family: "Roboto", sans-serif;
+    font-family:${({theme})=> theme.fonts.roboto};
     font-size: 16px;
     line-height: 1.37;
-    color: #121417;
+    color: ${({ theme }) => theme.colors.primary};
 
     &::placeholder {
-      color: #121417;
+      color: ${({ theme }) => theme.colors.primary};
     }
   }
   .buttonWrapper {
@@ -41,7 +42,7 @@ export const StyledLogin = styled.form`
     right: 18px;
   }
   .googleText {
-    font-weight:400;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.37;
     color: rgba(18, 20, 23, 0.8);
@@ -56,7 +57,7 @@ export const StyledLogin = styled.form`
     position: absolute;
     font-size: 12px;
     line-height: 1.37;
-    color: #e8362d;
+    color: ${({ theme }) => theme.colors.danger};
     margin-top: 8px;
     bottom: -18px;
     left: 18px;

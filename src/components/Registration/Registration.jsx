@@ -3,11 +3,13 @@ import { StyledRegister } from "./Registration.styled";
 import { yupResolver } from "@hookform/resolvers/yup";
 import IconEye from "assets/images/eye.svg?react";
 import IconEyeSlash from "assets/images/eye-slash.svg?react";
+import IconGoogle from "assets/images/google.svg?react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signUpSchema } from "constants/schemas";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "service/base";
+import Button, { ButtonVariants } from "components/Button/Button";
 
 const Registration = ({ closeModal, title, text }) => {
   const [inputType, setInputType] = useState("password");
@@ -99,12 +101,20 @@ const Registration = ({ closeModal, title, text }) => {
             )}
           </label>
         </div>
-        <button type="submit" className="loginBtn">
-          Sign Up
-        </button>
-        <button type="button" className="loginBtn" onClick={onGoogleAuth}>
-          Login with Google
-        </button>
+        <div className="buttonWrapper">
+          <Button isResponsive type="submit">
+            Sign Up
+          </Button>
+          <Button
+            variant={ButtonVariants.GHOST}
+            isResponsive
+            type="button"
+            onClick={onGoogleAuth}
+          >
+            <IconGoogle className="googleIcon" />
+            <span className="googleText"> Login with Google</span>
+          </Button>
+        </div>
       </StyledRegister>
     </Modal>
   );

@@ -6,23 +6,44 @@ import IconStar from "assets/images/star.svg?react";
 import IconHeart from "assets/images/heart.svg?react";
 import CardAddition from "components/CardAddition/CardAddition";
 import { useState } from "react";
-import Modal from "components/Modal/Modal";
 import BookTrialModal from "components/BookTrialModal/BookTrialModal";
+import Button, { ButtonSizes } from "components/Button/Button";
 
-const TeachersCard = () => {
-  const [openBookTrial, setOpenBookTrial] = useState(false)
+const TeachersCard = ({
+  name,
+  surname,
+  languages,
+  levels,
+  rating,
+  reviews,
+  price_per_hour,
+  lessons_done,
   
+  avatar_url,
+  lesson_info,
+  conditions,
+  experience,
+}) => {
+  const [openBookTrial, setOpenBookTrial] = useState(false);
+  const [isReadMoreOpen, setIsReadMoreOpen] = useState(false);
+
+  const toggleReadMore = () => {
+    if (isReadMoreOpen) setIsReadMoreOpen(false);
+    else {
+      setIsReadMoreOpen(true);
+    }
+  };
+
   const onOpenBookTrial = () => {
-    setOpenBookTrial(true)
-    
-  }
-   const onCloseBookTrial = () => {
-     setOpenBookTrial(false);
-   };
+    setOpenBookTrial(true);
+  };
+  const onCloseBookTrial = () => {
+    setOpenBookTrial(false);
+  };
   return (
     <StyledTeachersCard>
       <div className="bodyCardLeft">
-        <img className="avatarTeacher" src={imgTeacher} alt="Teacher" />
+        <img className="avatarTeacher" src={avatar_url} alt={name} />
       </div>
 
       <div className="bodyCardRight">
@@ -33,42 +54,43 @@ const TeachersCard = () => {
               <IconBook className="icon" />
               Lessons online |
             </li>
-            <li className="itemInfo">Lessons done: 1098 |</li>
+            <li className="itemInfo">Lessons done: {lessons_done} |</li>
             <li className="itemInfo">
               <IconStar className="icon" />
-              Rating: 4.8 |
+              Rating: {rating} |
             </li>
             <li className="itemInfo">
-              Price / 1 hour: <span className="price">30$</span>
+              Price / 1 hour: <span className="price">{price_per_hour}$</span>
             </li>
           </ul>
         </div>
 
         <div className="midleWrapper">
-          <h2 className="nameTeacher">Jane Smith</h2>
+          <h2 className="nameTeacher">{name}</h2>
           <div className="infoTeacherWrapper">
             <p className="infoTeacher">
-              Speaks: <span className="infoSpeaks">German, French</span>
+              Speaks: <span className="infoSpeaks">{languages.join(", ")}</span>
             </p>
             <p className="infoTeacher">
               Lesson Info:
-              <span className="infoDescription">
-                Lessons are structured to cover grammar, vocabulary, and
-                practical usage of the language.
-              </span>
+              <span className="infoDescription">{lesson_info}</span>
             </p>
             <p className="infoTeacher">
               Conditions:
               <span className="infoDescription">
-                Welcomes both adult learners and teenagers (13 years and
-                above).Provides personalized study plans
+               {conditions.join(' ')}
               </span>
             </p>
           </div>
-          <button type="button" className="infoReadMore">
+
+          <button
+            onClick={toggleReadMore}
+            type="button"
+            className="infoReadMore"
+          >
             Read more
           </button>
-          <CardAddition />
+          {isReadMoreOpen && <CardAddition />}
         </div>
         <div className="levelWrapper">
           <ul className="levelList">
@@ -79,6 +101,12 @@ const TeachersCard = () => {
             <li className="levelItem">#B2 Upper-Intermediate</li>
           </ul>
         </div>
+        {isReadMoreOpen && (
+          <Button size={ButtonSizes.L} type="button" onClick={onOpenBookTrial}>
+            Book trial lesson
+          </Button>
+        )}
+
         {openBookTrial && (
           <BookTrialModal
             closeModal={onCloseBookTrial}
@@ -88,14 +116,6 @@ const TeachersCard = () => {
             }
           />
         )}
-
-        <button
-          onClick={onOpenBookTrial}
-          type="button"
-          className="trialLessonBtn"
-        >
-          Book trial lesson
-        </button>
       </div>
       <button type="button" className="heartBtn">
         <IconHeart className="heartIcon" />

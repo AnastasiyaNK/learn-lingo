@@ -5,6 +5,7 @@ import { reactSelectStyles } from "constants/reactSelectStyled";
 import TeachersCard from "components/TeachersCard/TeachersCard";
 import Modal from "components/Modal/Modal";
 import { useState } from "react";
+import teachersData from "../../db.json";
 
 const languageOptions = [
   { value: "English", label: "English" },
@@ -57,14 +58,13 @@ const priceOptions = [
 ];
 
 const Teachers = () => {
-    const [openModal, setOpenModal] = useState(false);
-    const onOpenModal = () => {
-        setOpenModal(true)
-    }
-    const onCloseModal = () => {
-        setOpenModal(false);
-        
-    }
+  const [openModal, setOpenModal] = useState(false);
+  const onOpenModal = () => {
+    setOpenModal(true);
+  };
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
   return (
     <StyledTeachers>
       <section className="sectionFilters">
@@ -107,8 +107,23 @@ const Teachers = () => {
       <section>
         <Container>
           <div className="cardsWrapper">
-            <TeachersCard />
-            <TeachersCard />
+            {teachersData.map((data) => (
+              <TeachersCard
+                key={data.avatar_url}
+                name={data.name}
+                surname={data.surname}
+                languages={data.languages}
+                levels={data.levels}
+                rating={data.rating}
+                reviews={data.reviews}
+                price_per_hour={data.price_per_hour}
+                lessons_done={data.lessons_done}
+                avatar_url={data.avatar_url}
+                conditions={data.conditions}
+                experience={data.experience}
+                lesson_info={data.lesson_info}
+              />
+            ))}
           </div>
         </Container>
       </section>
