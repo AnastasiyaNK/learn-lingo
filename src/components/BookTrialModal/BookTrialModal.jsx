@@ -1,11 +1,13 @@
-
 import { StyledBookTrialModal } from "./BookTrialModal.styled";
 import Modal from "components/Modal/Modal";
-import imgUserEve from "assets/images/user-eve.png";
+
 import { bookTrialSchema } from "constants/schemas";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Button from "components/Button/Button";
+import { useSelector } from "react-redux";
+import { selectTeacherId } from "store/selectors";
+import teachersData from "../../db.json";
 
 const BookTrialModal = ({ closeModal, title, text }) => {
   const {
@@ -15,14 +17,22 @@ const BookTrialModal = ({ closeModal, title, text }) => {
   } = useForm({
     resolver: yupResolver(bookTrialSchema),
   });
+
+  const selectedTeacherId = useSelector(selectTeacherId);
+  const foundTeacher = teachersData.find((el) => el.id === selectedTeacherId);
+
   return (
     <Modal closeModal={closeModal} title={title} text={text}>
       <StyledBookTrialModal onSubmit={handleSubmit}>
         <div className="teacherBlockWrapper">
-          <img src={imgUserEve} alt="eve" />
+          <img
+            className="avatarImg"
+            src={foundTeacher.avatar_url}
+            alt={foundTeacher.name}
+          />
           <div className="userInfo">
             <p className="yourTeacher">Your teacher</p>
-            <p className="userName">Eve</p>
+            <p className="userName">{foundTeacher.name}</p>
           </div>
         </div>
         <h2 className="bookTrialTitle">

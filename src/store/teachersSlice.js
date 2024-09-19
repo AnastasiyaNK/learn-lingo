@@ -4,12 +4,17 @@ const INITIAL_STATE = {
   teachers: null,
   isLoading: false,
   error: null,
+  selectedTeacherId: null,
 };
 
 const teachersSlice = createSlice({
   name: "teachers",
   initialState: INITIAL_STATE,
-  reducers: {},
+  reducers: {
+    setSelectedTeacherId: (state, action) => {
+      state.selectedTeacherId = action.payload;
+    },
+  },
 
   //   extraReducers: (builder) =>
   //     builder
@@ -27,5 +32,5 @@ const teachersSlice = createSlice({
   //       }),
 });
 
-// export const { openModal, closeModal } = modalSlice.actions;
+export const {setSelectedTeacherId} = teachersSlice.actions;
 export const teachersReducer = teachersSlice.reducer;

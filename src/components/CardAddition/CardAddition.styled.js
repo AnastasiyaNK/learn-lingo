@@ -1,30 +1,33 @@
 import styled from "styled-components";
 export const StyledCardAddition = styled.div`
-padding-top:16px;
+  padding-top: 16px;
 
   .cardDescription {
     font-size: 16px;
     line-height: 1.5;
     color: #121417;
-    margin-bottom:32px;
+    margin-bottom: 32px;
   }
   .userList {
     list-style: none;
-    display:flex;
-    flex-direction:column;
-    gap:32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
   }
   .userItem {
- 
   }
   .userWrapper {
     display: flex;
     gap: 12px;
-    margin-bottom:16px;
+    margin-bottom: 16px;
+  }
+  .userIcon {
+    width: 44px;
+    height: 44px;
   }
   .userInfo {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     gap: 2px;
   }
   .userName {

@@ -7,6 +7,11 @@ export const StyledBookTrialModal = styled.form`
     gap: 14px;
     margin-bottom: 40px;
   }
+  .avatarImg {
+    width: 44px;
+    height: 44px;
+    border-radius:50%;
+  }
   .userInfo {
     display: flex;
     flex-direction: column;

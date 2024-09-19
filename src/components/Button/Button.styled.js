@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 export const StyledButtonPrimary = styled.button`
   display: flex;
@@ -19,8 +18,9 @@ export const StyledButtonPrimary = styled.button`
   gap: 8px;
   transition: all 0.3s;
 
-  &:hover, &:focus{
-    background: ${({theme})=> theme.colors.accentHover};
+  &:hover,
+  &:focus {
+    background: ${({ theme }) => theme.colors.accentHover};
   }
 `;
 export const StyledButtonSecondary = styled.button`
@@ -61,6 +61,6 @@ export const StyledButtonGhost = styled.button`
 
   &:hover,
   &:focus {
-   transform: scale(1.03);
+    transform: scale(1.03);
   }
 `;

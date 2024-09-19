@@ -31,40 +31,57 @@ const languageOptions = [
 ];
 
 const languageLevelOptions = [
-  { value: "#A1 Beginner", label: "#A1 Beginner" },
-  { value: "#A2 Elementary", label: "#A2 Elementary" },
-  { value: "#B1 Pre-Intermediate", label: "#B1 Pre-Intermediate" },
-  { value: "#B2 Intermediate", label: "#B2 Intermediate" },
-  { value: "#C1 Upper-Intermediate", label: "#C1 Upper-Intermediate" },
-  { value: "#C2 Advanced", label: "#C2 Advanced" },
-  { value: "#Proficient", label: "#Proficient" },
+  { value: "A1 Beginner", label: "#A1 Beginner" },
+  { value: "A2 Elementary", label: "#A2 Elementary" },
+  { value: "B1 Pre-Intermediate", label: "#B1 Pre-Intermediate" },
+  { value: "B2 Intermediate", label: "#B2 Intermediate" },
+  { value: "C1 Upper-Intermediate", label: "#C1 Upper-Intermediate" },
+  { value: "C2 Advanced", label: "#C2 Advanced" },
+  { value: "Proficient", label: "#Proficient" },
 ];
 const priceOptions = [
-  { value: "30", label: "$30" },
-  { value: "35", label: "$35" },
-  { value: "40", label: "$40" },
-  { value: "45", label: "$45" },
-  { value: "50", label: "$50" },
-  { value: "55", label: "$55" },
-  { value: "60", label: "$60" },
-  { value: "65", label: "$65" },
-  { value: "70", label: "$70" },
-  { value: "75", label: "$75" },
-  { value: "80", label: "$80" },
-  { value: "85", label: "$85" },
-  { value: "90", label: "$90" },
-  { value: "95", label: "$95" },
-  { value: "100", label: "$100" },
+  { value: 20, label: "$20" },
+  { value: 25, label: "$25" },
+  { value: 30, label: "$30" },
+  { value: 35, label: "$35" },
+  { value: 40, label: "$40" },
+  { value: 45, label: "$45" },
+  { value: 50, label: "$50" },
+  { value: 55, label: "$55" },
+  { value: 60, label: "$60" },
+  { value: 65, label: "$65" },
+  { value: 70, label: "$70" },
+  { value: 75, label: "$75" },
+  { value: 80, label: "$80" },
+  { value: 85, label: "$85" },
+  { value: 90, label: "$90" },
+  { value: 95, label: "$95" },
+  { value: 100, label: "$100" },
 ];
 
 const Teachers = () => {
+  const [selectedLanguage, setSelectedLanduage] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [selectedPrice, setSelectedPrice] = useState(null); // null | { value: 100, label: "$100" }
+
+  
   const [openModal, setOpenModal] = useState(false);
-  const onOpenModal = () => {
-    setOpenModal(true);
-  };
   const onCloseModal = () => {
     setOpenModal(false);
   };
+  const filteredTeachers = teachersData
+    .filter((el) => {
+      if (selectedLanguage === null) return true;
+      return el.languages.includes(selectedLanguage.value);
+    })
+    .filter((el) => {
+      if (selectedLevel === null) return true;
+      return el.levels.includes(selectedLevel.value);
+    }).filter((el) => {
+      if (selectedPrice === null) return true;
+      return el.price_per_hour <= selectedPrice.value;
+    })
+
   return (
     <StyledTeachers>
       <section className="sectionFilters">
@@ -74,19 +91,23 @@ const Teachers = () => {
               <span className="labelText">Languages</span>
 
               <Select
+                placeholder="Languages"
                 className="select-launuage"
                 defaultValue={languageOptions[0]}
-                //   onChange={setCarBrand}
+                onChange={setSelectedLanduage}
                 options={languageOptions}
                 styles={reactSelectStyles}
+                value={selectedLanguage}
               />
             </label>
             <label className="label">
               <span className="labelText">Level of knowledge</span>
               <Select
+                placeholder="Language level"
                 className="select-brand"
                 defaultValue={languageLevelOptions[0]}
-                //   onChange={setCarBrand}
+                onChange={setSelectedLevel}
+                value={selectedLevel}
                 options={languageLevelOptions}
                 styles={reactSelectStyles}
               />
@@ -94,9 +115,11 @@ const Teachers = () => {
             <label className="label">
               <span className="labelText">Price</span>
               <Select
+                placeholder="Price"
                 className="select-brand"
                 defaultValue={priceOptions[0]}
-                //   onChange={setCarBrand}
+                onChange={setSelectedPrice}
+                value={selectedPrice}
                 options={priceOptions}
                 styles={reactSelectStyles}
               />
@@ -107,9 +130,10 @@ const Teachers = () => {
       <section>
         <Container>
           <div className="cardsWrapper">
-            {teachersData.map((data) => (
+            {filteredTeachers.map((data) => (
               <TeachersCard
                 key={data.avatar_url}
+                teacherId={data.id}
                 name={data.name}
                 surname={data.surname}
                 languages={data.languages}
@@ -136,7 +160,6 @@ const Teachers = () => {
           }
         />
       )}
-      <button onClick={onOpenModal}>Open Modal</button>
     </StyledTeachers>
   );
 };

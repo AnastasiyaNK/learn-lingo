@@ -8,6 +8,18 @@ export const StyledTeachersCard = styled.div`
   position: relative;
   gap: 48px;
   .bodyCardLeft {
+    border: 3px solid #fbe9ba;
+    border-radius: 100px;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .avatarTeacher {
+    border-radius: 50%;
+    width: 96px;
+    height: 96px;
   }
   .bodyCardRight {
     width: 100%;

@@ -1,5 +1,4 @@
 import { StyledTeachersCard } from "./TeachersCard.styled";
-import imgTeacher from "assets/images/avatar.png";
 import IconBook from "assets/images/book-open.svg?react";
 import IconStar from "assets/images/star.svg?react";
 
@@ -8,6 +7,8 @@ import CardAddition from "components/CardAddition/CardAddition";
 import { useState } from "react";
 import BookTrialModal from "components/BookTrialModal/BookTrialModal";
 import Button, { ButtonSizes } from "components/Button/Button";
+import { useDispatch } from "react-redux";
+import { setSelectedTeacherId } from "store/teachersSlice";
 
 const TeachersCard = ({
   name,
@@ -18,12 +19,14 @@ const TeachersCard = ({
   reviews,
   price_per_hour,
   lessons_done,
-  
+
   avatar_url,
   lesson_info,
   conditions,
   experience,
+  teacherId,
 }) => {
+  const dispatch = useDispatch();
   const [openBookTrial, setOpenBookTrial] = useState(false);
   const [isReadMoreOpen, setIsReadMoreOpen] = useState(false);
 
@@ -34,8 +37,11 @@ const TeachersCard = ({
     }
   };
 
-  const onOpenBookTrial = () => {
+  const onOpenBookTrial = (teacherId) => {
     setOpenBookTrial(true);
+     dispatch(setSelectedTeacherId(teacherId))
+  
+    
   };
   const onCloseBookTrial = () => {
     setOpenBookTrial(false);
@@ -66,20 +72,20 @@ const TeachersCard = ({
         </div>
 
         <div className="midleWrapper">
-          <h2 className="nameTeacher">{name}</h2>
+          <h2 className="nameTeacher">
+            {name} {surname}
+          </h2>
           <div className="infoTeacherWrapper">
             <p className="infoTeacher">
               Speaks: <span className="infoSpeaks">{languages.join(", ")}</span>
             </p>
             <p className="infoTeacher">
               Lesson Info:
-              <span className="infoDescription">{lesson_info}</span>
+              <span className="infoDescription"> {lesson_info}</span>
             </p>
             <p className="infoTeacher">
               Conditions:
-              <span className="infoDescription">
-               {conditions.join(' ')}
-              </span>
+              <span className="infoDescription"> {conditions.join(" ")}</span>
             </p>
           </div>
 
@@ -90,19 +96,30 @@ const TeachersCard = ({
           >
             Read more
           </button>
-          {isReadMoreOpen && <CardAddition />}
+          {isReadMoreOpen && (
+            <CardAddition
+              surname={surname}
+              levels={levels}
+              reviews={reviews}
+              experience={experience}
+            />
+          )}
         </div>
         <div className="levelWrapper">
           <ul className="levelList">
-            <li className="levelItem active">#A1 Beginner</li>
-            <li className="levelItem">#A2 Elementary</li>
-            <li className="levelItem">#B2 Upper-Intermediate</li>
-            <li className="levelItem">#A2 Elementary</li>
-            <li className="levelItem">#B2 Upper-Intermediate</li>
+            {levels.map((level) => (
+              <li key={level} className="levelItem active">
+                #{level}
+              </li>
+            ))}
           </ul>
         </div>
         {isReadMoreOpen && (
-          <Button size={ButtonSizes.L} type="button" onClick={onOpenBookTrial}>
+          <Button
+            size={ButtonSizes.L}
+            type="button"
+            onClick={() => onOpenBookTrial(teacherId)}
+          >
             Book trial lesson
           </Button>
         )}
