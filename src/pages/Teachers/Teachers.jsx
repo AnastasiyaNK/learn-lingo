@@ -134,6 +134,7 @@ const Teachers = () => {
               <TeachersCard
                 key={data.avatar_url}
                 teacherId={data.id}
+                selectedLevel={selectedLevel}
                 name={data.name}
                 surname={data.surname}
                 languages={data.languages}

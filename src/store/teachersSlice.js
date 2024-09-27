@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   isLoading: false,
   error: null,
   selectedTeacherId: null,
+  favTeachersIds: [],
 };
 
 const teachersSlice = createSlice({
@@ -14,6 +15,13 @@ const teachersSlice = createSlice({
     setSelectedTeacherId: (state, action) => {
       state.selectedTeacherId = action.payload;
     },
+    toggleFavoriteTeacher: (state, action) => {
+      if (state.favTeachersIds.includes(action.payload)) {
+        state.favTeachersIds = state.favTeachersIds.filter((el)=> action.payload !== el)
+      } else {
+        state.favTeachersIds.push(action.payload)
+      }
+    }
   },
 
   //   extraReducers: (builder) =>
@@ -32,5 +40,5 @@ const teachersSlice = createSlice({
   //       }),
 });
 
-export const {setSelectedTeacherId} = teachersSlice.actions;
+export const { setSelectedTeacherId, toggleFavoriteTeacher } = teachersSlice.actions;
 export const teachersReducer = teachersSlice.reducer;

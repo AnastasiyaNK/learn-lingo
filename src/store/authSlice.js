@@ -6,6 +6,7 @@ const INITIAL_STATE = {
 
   isLoading: false,
   error: null,
+  
 };
 
 const authSlice = createSlice({

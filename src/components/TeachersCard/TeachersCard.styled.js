@@ -123,16 +123,27 @@ export const StyledTeachersCard = styled.div`
     }
   }
 
+  .heartIcon {
+    transition: all 0.3s;
+    fill: white;
+  }
+
   .heartBtn {
     cursor: pointer;
+    transition: all 0.3s;
     background: transparent;
     border: none;
     position: absolute;
     top: 20px;
     right: 26px;
+    &.active {
+      color: #f0aa8d;
+      .heartIcon {
+        fill: #f0aa8d;
+      }
+    }
   }
-  .heartIcon {
-  }
+
   .trialLessonBtn {
     border-radius: 12px;
     padding: 16px 48px;

@@ -10,7 +10,7 @@ export const StyledBookTrialModal = styled.form`
   .avatarImg {
     width: 44px;
     height: 44px;
-    border-radius:50%;
+    border-radius: 50%;
   }
   .userInfo {
     display: flex;
@@ -36,6 +36,7 @@ export const StyledBookTrialModal = styled.form`
     margin-bottom: 20px;
   }
   .radioListLabel {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -103,6 +104,7 @@ export const StyledBookTrialModal = styled.form`
     margin-bottom: 40px;
   }
   .bookTrialLabel {
+    position: relative;
   }
   .bookTrialInput {
     border: 1px solid rgba(18, 20, 23, 0.1);

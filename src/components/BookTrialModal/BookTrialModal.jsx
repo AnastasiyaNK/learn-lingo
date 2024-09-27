@@ -18,12 +18,16 @@ const BookTrialModal = ({ closeModal, title, text }) => {
     resolver: yupResolver(bookTrialSchema),
   });
 
+  const onSubmit = (values) => {
+    console.log(values);
+  }
+
   const selectedTeacherId = useSelector(selectTeacherId);
   const foundTeacher = teachersData.find((el) => el.id === selectedTeacherId);
 
   return (
     <Modal closeModal={closeModal} title={title} text={text}>
-      <StyledBookTrialModal onSubmit={handleSubmit}>
+      <StyledBookTrialModal onSubmit={handleSubmit(onSubmit)}>
         <div className="teacherBlockWrapper">
           <img
             className="avatarImg"
@@ -44,6 +48,7 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               className="radioInput"
               type="radio"
               {...register("reasonForLearning")}
+              value="Career and business"
             />
             <span className="fake" />
             Career and business
@@ -53,6 +58,7 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               className="radioInput"
               type="radio"
               {...register("reasonForLearning")}
+              value="Lesson for kids"
             />
             <span className="fake" />
             Lesson for kids
@@ -62,6 +68,7 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               className="radioInput"
               type="radio"
               {...register("reasonForLearning")}
+              value="Living abroad"
             />
             <span className="fake" />
             Living abroad
@@ -71,6 +78,7 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               className="radioInput"
               type="radio"
               {...register("reasonForLearning")}
+              value="Exams and coursework"
             />
             <span className="fake" />
             Exams and coursework
@@ -80,10 +88,14 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               className="radioInput"
               type="radio"
               {...register("reasonForLearning")}
+              value="Culture, travel or hobby"
             />
             <span className="fake" />
             Culture, travel or hobby
           </label>
+          {errors.reasonForLearning && (
+            <p className="errorsText">{errors.reasonForLearning.message}</p>
+          )}
         </div>
 
         <div className="inputWrapper">
@@ -98,7 +110,7 @@ const BookTrialModal = ({ closeModal, title, text }) => {
               <p className="errorsText">{errors.fullName.message}</p>
             )}
           </label>
-          <label className="loginLabel">
+          <label className="bookTrialLabel">
             <input
               {...register("email")}
               className="bookTrialInput"

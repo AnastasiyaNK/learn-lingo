@@ -42,7 +42,6 @@ export const bookTrialSchema = yup.object().shape({
       "Lesson for kids",
       "Living abroad",
       "Exams and coursework",
-      ,
       "Culture, travel or hobby",
     ]),
 });

@@ -7,8 +7,10 @@ import CardAddition from "components/CardAddition/CardAddition";
 import { useState } from "react";
 import BookTrialModal from "components/BookTrialModal/BookTrialModal";
 import Button, { ButtonSizes } from "components/Button/Button";
-import { useDispatch } from "react-redux";
-import { setSelectedTeacherId } from "store/teachersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedTeacherId, toggleFavoriteTeacher } from "store/teachersSlice";
+import clsx from "clsx";
+import { selectFavTeacherIds } from "store/selectors";
 
 const TeachersCard = ({
   name,
@@ -25,8 +27,10 @@ const TeachersCard = ({
   conditions,
   experience,
   teacherId,
+  selectedLevel,
 }) => {
   const dispatch = useDispatch();
+  const favTeachersIds = useSelector(selectFavTeacherIds)
   const [openBookTrial, setOpenBookTrial] = useState(false);
   const [isReadMoreOpen, setIsReadMoreOpen] = useState(false);
 
@@ -37,15 +41,21 @@ const TeachersCard = ({
     }
   };
 
+  const onFavoriteTeacher = () => {
+    dispatch(toggleFavoriteTeacher(teacherId));
+  }
+
   const onOpenBookTrial = (teacherId) => {
     setOpenBookTrial(true);
-     dispatch(setSelectedTeacherId(teacherId))
-  
-    
+    dispatch(setSelectedTeacherId(teacherId));
   };
   const onCloseBookTrial = () => {
     setOpenBookTrial(false);
   };
+
+  const isTeacherFavorite = favTeachersIds.includes(teacherId);
+ 
+  
   return (
     <StyledTeachersCard>
       <div className="bodyCardLeft">
@@ -108,7 +118,12 @@ const TeachersCard = ({
         <div className="levelWrapper">
           <ul className="levelList">
             {levels.map((level) => (
-              <li key={level} className="levelItem active">
+              <li
+                key={level}
+                className={clsx("levelItem", {
+                  active: level === selectedLevel?.value,
+                })}
+              >
                 #{level}
               </li>
             ))}
@@ -134,7 +149,13 @@ const TeachersCard = ({
           />
         )}
       </div>
-      <button type="button" className="heartBtn">
+      <button
+        onClick={onFavoriteTeacher}
+        type="button"
+        className={clsx("heartBtn", {
+          active: isTeacherFavorite,
+        })}
+      >
         <IconHeart className="heartIcon" />
       </button>
     </StyledTeachersCard>
