@@ -4,8 +4,10 @@ import Select from "react-select";
 import { reactSelectStyles } from "constants/reactSelectStyled";
 import TeachersCard from "components/TeachersCard/TeachersCard";
 import Modal from "components/Modal/Modal";
-import { useState } from "react";
-import teachersData from "../../db.json";
+import { useEffect, useState } from "react";
+
+import { db } from "service/base";
+import { onValue, ref } from "firebase/database";
 
 const languageOptions = [
   { value: "English", label: "English" },
@@ -63,24 +65,42 @@ const Teachers = () => {
   const [selectedLanguage, setSelectedLanduage] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null); // null | { value: 100, label: "$100" }
+  const [teachersData, setTeachersData] = useState([]);
 
-  
+  useEffect(() => {
+    const dataRef = ref(db, "teachers"); // Вкажіть шлях до вузла
+    const unsubscribe = onValue(dataRef, (snapshot) => {
+      const data = snapshot.val();
+      const teacherArray = data
+        ? Object.keys(data).map((key) => ({
+            id: key,
+            ...data[key],
+          }))
+        : [];
+      setTeachersData(teacherArray);
+    });
+
+    return () => unsubscribe(); // Відписка від прослуховування при розмонтуванні компонента
+  }, []);
+
   const [openModal, setOpenModal] = useState(false);
   const onCloseModal = () => {
     setOpenModal(false);
   };
-  const filteredTeachers = teachersData
-    .filter((el) => {
-      if (selectedLanguage === null) return true;
-      return el.languages.includes(selectedLanguage.value);
-    })
-    .filter((el) => {
-      if (selectedLevel === null) return true;
-      return el.levels.includes(selectedLevel.value);
-    }).filter((el) => {
-      if (selectedPrice === null) return true;
-      return el.price_per_hour <= selectedPrice.value;
-    })
+  const filteredTeachers =
+    teachersData
+      ?.filter((el) => {
+        if (selectedLanguage === null) return true;
+        return el.languages.includes(selectedLanguage.value);
+      })
+      ?.filter((el) => {
+        if (selectedLevel === null) return true;
+        return el.levels.includes(selectedLevel.value);
+      })
+      ?.filter((el) => {
+        if (selectedPrice === null) return true;
+        return el.price_per_hour <= selectedPrice.value;
+      }) ?? [];
 
   return (
     <StyledTeachers>
